@@ -1,9 +1,10 @@
 const express = require('express')
 const hbs = require('hbs')
+const data = require('./helpers/data')
 
 const app = express()
 
-const MAINTENANCE_MODE = true
+const MAINTENANCE_MODE = false
 
 hbs.registerPartials(__dirname + '/views/partials')
 
@@ -35,7 +36,17 @@ app.get('/', (req, res) => {
 })
 
 app.get('/hello', (req, res) => {
-    res.send('Hello world!')
+    res.status(200).send({
+        message: 'Hello world!'
+    })
+})
+
+app.get('/users/1', (req, res) => {
+    res.status(200).send(data.users[0])
+})
+
+app.get('/users', (req, res) => {
+    res.status(200).send(data.users)
 })
 
 app.get('/about', (req, res) => {
